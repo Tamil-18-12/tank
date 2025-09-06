@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Database Overview</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #1c1c3c, #3c0d3c);
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .container-box {
+            background: #fff8e4;
+            color: #4b3e00;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 1000px;
+            margin: 20px auto;
+            box-shadow: 0 8px 30px rgba(255, 216, 0, 0.25);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #3a2d00;
+        }
+
+        .event-block {
+            margin-bottom: 40px;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .event-meta {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: #7c5d14;
+        }
+
+        .booking-entry {
+            border-bottom: 1px solid #ffe679;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .booking-entry:last-child {
+            border-bottom: none;
+        }
+
+        .no-bookings {
+            font-style: italic;
+            color: #a67c00;
+        }
+
+        .db-section {
+            border: 2px solid #ffe679;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 40px;
+            background: #fffdf5;
+        }
+
+        .db-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2e2300;
+            text-align: center;
+        }
+
+        .clear-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: #b22222;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: #ff4444;
+            box-shadow: 0 4px 12px rgba(255, 68, 68, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-box">
+        <h2>📂 Booking Database Overview</h2>
+        <div id="databaseView"></div>
+        <button class="clear-btn" onclick="clearDatabase()">🗑️ Clear All Data</button>
+    </div>
+
+    <script>
+        const databases = [
+            { name: "Catering", eventKey: "catering_events", bookingKey: "catering_booking_db" },
+            { name: "Travels", eventKey: "travels_events", bookingKey: "travels_booking_db" },
+            { name: "Photoshoot", eventKey: "photoshoot_events", bookingKey: "photoshoot_booking_db" },
+            { name: "Sweets", eventKey: "sweet_events", bookingKey: "sweet_booking_db" }
+        ];
+
+        const container = document.getElementById("databaseView");
+
+        databases.forEach(db => {
+            const events = JSON.parse(localStorage.getItem(db.eventKey) || '[]');
+            const bookings = JSON.parse(localStorage.getItem(db.bookingKey) || '{}');
+
+            const section = document.createElement("div");
+            section.className = "db-section";
+            section.innerHTML = `<div class="db-title">📌 ${db.name} Bookings</div>`;
+
+            if (events.length === 0) {
+                section.innerHTML += `<p class="text-center text-warning">No ${db.name.toLowerCase()} events found.</p>`;
+            } else {
+                events.forEach((event, idx) => {
+                    const eventBookings = bookings[idx] || [];
+                    const eventBlock = document.createElement("div");
+                    eventBlock.className = "event-block";
+
+                    eventBlock.innerHTML = `
+            <div class="event-title">📍 ${event.location}</div>
+            <div class="event-meta">
+              Date: ${new Date(event.dateStart).toLocaleString()} – ${new Date(event.dateEnd).toLocaleString()}<br>
+              Total Slots: ${event.members} | Booked: ${eventBookings.length} | Remaining: ${event.members - eventBookings.length}
+            </div>
+            <div class="booking-list">
+              ${eventBookings.length === 0
+                            ? `<div class="no-bookings">No bookings yet.</div>`
+                            : eventBookings.map((b, i) => `
+                <div class="booking-entry">
+                  <strong>#${i + 1}</strong><br>
+                  👤 Name: ${b.name}<br>
+                  🏠 Address: ${b.address}<br>
+                  📱 WhatsApp: ${b.whatsapp}<br>
+                  ⏰ Time: ${new Date(b.timestamp).toLocaleString()}
+                </div>
+              `).join('')}
+            </div>
+          `;
+                    section.appendChild(eventBlock);
+                });
+            }
+
+            container.appendChild(section);
+        });
+
+        function clearDatabase() {
+            if (confirm("⚠️ Are you sure you want to clear ALL data? This action cannot be undone!")) {
+                localStorage.clear();
+                alert("✅ All data cleared successfully!");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+
+</html>

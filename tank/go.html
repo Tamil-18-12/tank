@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Indian Youth Association | Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #501F56, #19021C);
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 24px;
+            background: linear-gradient(135deg, #501F56, #19021C);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+            position: relative;
+            z-index: 99;
+        }
+
+        .logo img {
+            height: 48px;
+            width: 48px;
+            object-fit: cover;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 26px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        nav ul li {
+            position: relative;
+            cursor: pointer;
+            font-weight: 900;
+            padding: 6px 10px;
+            font-size: 1rem;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 17px;
+            display: inline-block;
+        }
+
+        nav ul li::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 20%;
+            bottom: 2px;
+            width: 60%;
+            height: 3px;
+            background: #fcdc3b;
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        nav ul li:hover {
+            color: #fcdc3b;
+            background: rgba(252, 220, 59, 0.08);
+        }
+
+        nav ul li:hover::after {
+            transform: scaleX(1);
+        }
+
+        .joi {
+            padding: 6px 20px;
+            background-color: gold;
+            color: black;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 4px;
+            box-shadow: 0 4px 18px #fcdc3b59;
+            letter-spacing: 1px;
+        }
+
+        .service-card {
+            background: #ffe24d;
+            border-radius: 22px;
+            box-shadow: 0px 6px 24px rgba(60, 0, 80, 0.14);
+            transition: transform 0.14s;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 30px 24px;
+            text-align: left;
+            min-height: 170px;
+            font-size: 1.11rem;
+            color: black;
+        }
+
+        .service-card:hover {
+            transform: scale(1.045);
+            box-shadow: 0px 10px 34px rgba(80, 0, 80, 0.22);
+        }
+
+        .service-img {
+            flex: 0 0 32%;
+            max-width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-right: 18px;
+            background: #fff2ac;
+        }
+
+        .service-text {
+            flex: 1;
+        }
+
+        .service-text h2 {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+
+        .service-text p {
+            font-size: 1rem;
+            color: #6b501c;
+        }
+
+        @media (max-width: 768px) {
+            .service-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .service-img {
+                width: 95%;
+                max-width: 220px;
+                height: 160px;
+                margin: 0 0 12px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo" />
+        </div>
+        <ul>
+            <li onclick="navigateTo('home.html')">Home</li>
+            <li onclick="navigateTo('about.html')">About</li>
+            <li onclick="navigateTo('contact.html')">Contact</li>
+            <li onclick="navigateTo('review.html')">Review</li>
+            <li onclick="navigateTo('join.html')"><span class="joi">Join Us</span></li>
+        </ul>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="fw-bold text-center mb-4">Indian Youth Association - Services</h1>
+        <p class="lead text-center mb-5 text-light">
+            Connecting communities with practical solutions. Explore our featured services, designed to make your life
+            easier
+            and events memorable.
+        </p>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="service-card" onclick="navigateTo('catering-book.html')">
+                    <img src="catering logo.png" alt="Catering" class="service-img" />
+                    <div class="service-text">
+                        <h2>Catering Services</h2>
+                        <p class="d-none d-md-block">Delicious menus for all occasions, served hygienically.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+                <div class="service-card" onclick="navigateTo('travels-book.html')">
+                    <img src="travels logo.png" alt="Travels" class="service-img" />
+                    <div class="service-text">
+                        <h2>Travels</h2>
+                        <p class="d-none d-md-block">Safe, reliable travel options for groups and individuals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+                <div class="service-card" onclick="navigateTo('photography-book.html')">
+                    <img src="photography-logo.png" alt="Photography" class="service-img" />
+                    <div class="service-text">
+                        <h2>Photography</h2>
+                        <p class="d-none d-md-block">Capture memories with professional photos and videos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+                <div class="service-card" onclick="navigateTo('sweetstall.html')">
+                    <img src="icecream logo.png" alt="Sweet Stall" class="service-img" />
+                    <div class="service-text">
+                        <h2>Sweet Stall</h2>
+                        <p class="d-none d-md-block">Enjoy traditional sweets and snacks, fresh and tasty.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Control Dashboard - OM Service</title>
+
+    <!-- Bootstrap CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2b0d31, #0f0513);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 3rem;
+            color: #fcdc3b;
+            text-shadow: 0 0 20px #fcdc3b;
+            font-weight: 800;
+        }
+
+        .section-title {
+            margin-top: 50px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-align: center;
+            color: #fcdc3b;
+            text-shadow: 0 0 10px #fcdc3b;
+            font-weight: 700;
+            border-bottom: 2px dashed #fcdc3b;
+            padding-bottom: 10px;
+        }
+
+        .card-custom {
+            background: #1d0d20;
+            border: none;
+            border-radius: 20px;
+            text-align: center;
+            padding: 25px 15px;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(252, 220, 59, 0.15);
+        }
+
+        .card-custom:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 25px rgba(252, 220, 59, 0.4);
+        }
+
+        .card-custom i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #fcdc3b;
+            text-shadow: 0 0 10px #fcdc3b;
+        }
+
+        .card-custom a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            background-color: #fcdc3b;
+            color: #19021C;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card-custom a:hover {
+            background-color: #fff;
+            color: #501F56;
+            box-shadow: 0 0 15px #fcdc3b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1><i class="bi bi-speedometer2"></i> Control Dashboard</h1>
+
+    <!-- Event Pages -->
+    <div class="section-title">Event Pages</div>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-basket"></i>
+                <h5>Catering Event</h5>
+                <a href="catering-event.html">Open</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-airplane"></i>
+                <h5>Travel Event</h5>
+                <a href="travels-event.html">Open</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-camera"></i>
+                <h5>Photography Event</h5>
+                <a href="photography-event.html">Open</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-cupcake"></i>
+                <h5>Sweet Event</h5>
+                <a href="sweet-event.html">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Event Pages -->
+    <div class="section-title">Clear Event Pages</div>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-trash"></i>
+                <h5>Sweet Clear</h5>
+                <a href="sweet clear.html">Clear</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-trash"></i>
+                <h5>Catering Clear</h5>
+                <a href="catering-clear.html">Clear</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-trash"></i>
+                <h5>Travel Clear</h5>
+                <a href="travel-clear.html">Clear</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-custom">
+                <i class="bi bi-trash"></i>
+                <h5>Photography Clear</h5>
+                <a href="photography-clear.html">Clear</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Database & Clear Pages -->
+    <div class="section-title">Database & Clear Pages</div>
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card-custom">
+                <i class="bi bi-database"></i>
+                <h5>Database</h5>
+                <a href="database.html">Open</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card-custom">
+                <i class="bi bi-x-circle"></i>
+                <h5>Clear All</h5>
+                <a href="clear.html">Clear</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

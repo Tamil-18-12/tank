@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OM Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial Black', Arial, sans-serif;
+            background: linear-gradient(113deg, #501F56, #19021C);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 24px;
+            background: linear-gradient(135deg, #501F56, #19021C);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+            position: relative;
+            z-index: 99;
+        }
+
+        .logo img {
+            height: 54px;
+            width: 55px;
+            object-fit: cover;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 26px;
+            font-weight: bold;
+            margin: 0;
+            flex-direction: row;
+        }
+
+        nav ul li {
+            position: relative;
+            cursor: pointer;
+            font-weight: 900;
+            padding: 6px 10px;
+            font-size: 1rem;
+            transition: color .3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 17px;
+            display: inline-block;
+        }
+
+        nav ul li::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 20%;
+            bottom: 2px;
+            width: 60%;
+            height: 3px;
+            background: #fcdc3b;
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        nav ul li:hover {
+            color: #fcdc3b;
+            background: rgba(252, 220, 59, 0.08);
+        }
+
+        nav ul li:hover::after {
+            transform: scaleX(1);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 4px;
+            background: #fcdc3b;
+            border-radius: 2px;
+            transition: .4s;
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                padding: 12px 10px;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 62px;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #501F56 60%, #19021C);
+                flex-direction: column;
+                align-items: center;
+                padding: 14px 0;
+                gap: 0px;
+                transition: max-height .5s;
+                max-height: 0;
+                overflow: hidden;
+                z-index: 9;
+                border-radius: 0 0 16px 16px;
+                box-shadow: 0 8px 22px rgba(80, 31, 86, 0.2);
+            }
+
+            nav ul.open {
+                max-height: 260px;
+                gap: 8px;
+            }
+
+            nav ul li {
+                padding: 16px;
+                font-size: 1.1rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        .joi {
+            padding: 6px 20px;
+            background-color: gold;
+            color: black;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 16px;
+            box-shadow: 0 4px 18px #fcdc3b59;
+            letter-spacing: 1px;
+        }
+
+        .a {
+            margin-top: 19px;
+        }
+
+        .main-section {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-box {
+            background: linear-gradient(135deg, #9926a8, #37023e);
+            border-radius: 20px;
+            padding: 56px 22px;
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.22);
+            text-align: center;
+            width: 96vw;
+            max-width: 500px;
+            color: white;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            animation: fadein .9s;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-box h1 {
+            font-size: 4.6rem;
+            font-weight: 900;
+            text-shadow: 0 0 22px #fcdc3b, 0 2px 8px #380c42;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-bottom: 11px;
+        }
+
+        .content-box .subheading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: #fcdc3b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px #531f62;
+        }
+
+        .btn-book {
+            background-color: #fcdc3b;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 50px;
+            font-weight: 900;
+            font-size: 1.25rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px 0 rgb(255 206 59 / 60%);
+            transition: background.3s, color .3s;
+        }
+
+        .btn-book:hover {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+        }
+
+        /* Popup styles */
+        #loginPopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(25, 2, 28, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            font-family: 'Arial Black', Arial, sans-serif;
+        }
+
+        #loginPopup.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #loginPopup .popup-content {
+            background: linear-gradient(135deg, #501F56, #19021C);
+            border-radius: 20px;
+            padding: 30px 40px;
+            box-shadow: 0 8px 20px rgba(255, 252, 59, 0.8);
+            width: 320px;
+            text-align: center;
+            position: relative;
+            color: #fcdc3b;
+        }
+
+        #loginPopup .popup-content h2 {
+            margin-bottom: 18px;
+            font-size: 2.4rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px #fcdc3b, 0 2px 6px #380c42;
+        }
+
+        #loginPopup .popup-content label {
+            display: block;
+            text-align: left;
+            margin: 12px 0 6px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #fcdc3b;
+            text-shadow: 0 0 8px #531f62;
+        }
+
+        #loginPopup .popup-content input[type="text"],
+        #loginPopup .popup-content input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #fcdc3b;
+            border-radius: 12px;
+            background-color: #37023e;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #loginPopup .popup-content input[type="text"]:focus,
+        #loginPopup .popup-content input[type="password"]:focus {
+            border-color: #fcdc3b;
+            box-shadow: 0 0 10px #fcdc3b;
+        }
+
+        #loginPopup .popup-content .btn-login {
+            margin-top: 22px;
+            background-color: #fcdc3b;
+            color: black;
+            padding: 14px 36px;
+            font-size: 1.15rem;
+            font-weight: 900;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px #fcdc3b99;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            width: 100%;
+        }
+
+        #loginPopup .popup-content .btn-login:hover {
+            background-color: white;
+            color: #501F56;
+        }
+
+        #loginPopup .popup-content .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fcdc3b;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        #loginPopup .popup-content .close-btn:hover {
+            color: white;
+        }
+
+        #loginPopup .error-msg {
+            margin-top: 12px;
+            color: #ff4c4c;
+            font-weight: 700;
+            font-size: 1rem;
+            text-shadow: 0 0 6px #ff4c4c;
+            min-height: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Logo" />
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul id="navList">
+            <div class="a">
+                <li onclick="navigateTo('home.html')">Home</li>
+                <!-- About Removed -->
+                <li onclick="navigateTo('contact.html')">Contact</li>
+                <li onclick="navigateTo('review.html')">Review</li>
+            </div>
+            <li onclick="showLoginPopup()"><span class="joi">Control</span></li>
+            <li onclick="navigateTo('join.html')"><span class="joi">Join Us</span></li>
+        </ul>
+    </nav>
+    <section class="main-section">
+        <div class="content-box">
+            <h1>OM</h1>
+            <div class="subheading">SERVICE</div>
+            <button class="btn-book" onclick="navigateTo('go.html')">Book Now</button>
+        </div>
+    </section>
+
+    <!-- Login Popup -->
+    <div id="loginPopup">
+        <div class="popup-content" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+            <span class="close-btn" aria-label="Close login popup" role="button" tabindex="0"
+                onclick="hideLoginPopup()">&times;</span>
+            <h2 id="loginTitle">Login</h2>
+            <form id="loginForm" onsubmit="return validateLogin(event)">
+                <label for="userId">User ID</label>
+                <input type="text" id="userId" name="userId" placeholder="Enter User ID" required autocomplete="off" />
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required
+                    autocomplete="off" />
+                <button type="submit" class="btn-login">Submit</button>
+                <div class="error-msg" id="loginError"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Responsive menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navList = document.getElementById('navList');
+        menuToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+        // Mobile: collapse menu after click
+        document.querySelectorAll('#navList li').forEach(li => {
+            li.addEventListener('click', () => navList.classList.remove('open'));
+        });
+
+        // Navigation function
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+        // Show login popup
+        function showLoginPopup() {
+            document.getElementById('loginPopup').classList.add('active');
+            document.getElementById('loginError').textContent = '';
+            document.getElementById('loginForm').reset();
+            document.getElementById('userId').focus();
+        }
+        // Hide login popup
+        function hideLoginPopup() {
+            document.getElementById('loginPopup').classList.remove('active');
+        }
+        // Validate login credentials
+        function validateLogin(event) {
+            event.preventDefault();
+            const userId = document.getElementById('userId').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('loginError');
+            const validUserId = "1";
+            const validPassword = "1";
+
+            if (userId === validUserId && password === validPassword) {
+                errorMsg.style.color = "#4BB543"; // Green color
+                errorMsg.textContent = "Login successful! Redirecting...";
+                setTimeout(() => {
+                    hideLoginPopup();
+                    window.location.href = "control.html"; // Redirect to control page on success
+                }, 1000);
+            } else {
+                errorMsg.style.color = "#ff4c4c"; // Red color
+                errorMsg.textContent = "Invalid User ID or Password.";
+            }
+            return false;
+        }
+        // Close popup on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && document.getElementById('loginPopup').classList.contains('active')) {
+                hideLoginPopup();
+            }
+        });
+        // Accessibility for close button keyboard access
+        document.querySelector('.close-btn').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                hideLoginPopup();
+            }
+        });
+    </script>
+</body>
+
+</html>
